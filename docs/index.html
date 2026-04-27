@@ -505,6 +505,12 @@
       gap: 1rem;
     }
 
+    .day {
+      display: grid;
+      gap: 0.55rem;
+      align-content: start;
+    }
+
     .day .date {
       display: inline-block;
       margin-bottom: 0.5rem;
@@ -522,14 +528,34 @@
     .day .meta {
       color: var(--muted);
       font-size: 0.92rem;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.2rem;
     }
 
     .day .subhead {
-      display: block;
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
       font-weight: 700;
       color: var(--pine-strong);
-      margin-top: 0.75rem;
+      margin-top: 0.25rem;
+      padding: 0.22rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(33, 73, 63, 0.16);
+      background: rgba(33, 73, 63, 0.06);
+      font-size: 0.82rem;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .day .detail-list {
+      margin: 0;
+      padding-left: 1.05rem;
+      font-size: 0.95rem;
+      line-height: 1.48;
+    }
+
+    .day .detail-list li + li {
+      margin-top: 0.38rem;
     }
 
     .booking-table {
@@ -942,7 +968,7 @@
             <ul class="detail-list">
               <li><strong>6:00-8:30 p.m.</strong> Early-arrival subgroup lands at SEA, picks up car, and regroups.</li>
               <li><strong>8:30-8:50 p.m.</strong> Grocery and breakfast-supply stop for coffee, pastries, fruit, and trail lunch ingredients.</li>
-              <li><strong>8:50-11:20 p.m.</strong> SEA to Ashford drive, about 2.5 hours without a long stop.</li>
+              <li><strong>8:50-11:20 p.m.</strong> <a href="https://www.google.com/maps/dir/Seattle-Tacoma+International+Airport/Ashford,+WA" target="_blank" rel="noreferrer">SEA to Ashford drive</a>, about 2.5 hours without a long stop.</li>
               <li><strong>11:20 p.m. onward</strong> Check-in, cold snack, and full reset for the first Paradise morning.</li>
             </ul>
             <span class="subhead">Food plan</span>
@@ -968,8 +994,8 @@
             <span class="subhead">Suggested timeline</span>
             <ul class="detail-list">
               <li><strong>12:00-1:00 p.m.</strong> Lunch stop while clearing the airport / rental-car zone.</li>
-              <li><strong>1:00-3:45 p.m.</strong> SEA to Ashford drive, with check-in target around 3:00-4:00 p.m.</li>
-              <li><strong>4:30-5:30 p.m.</strong> One short scenic outing only: Longmire or Narada Falls.</li>
+              <li><strong>1:00-3:45 p.m.</strong> <a href="https://www.google.com/maps/dir/Seattle-Tacoma+International+Airport/Ashford,+WA" target="_blank" rel="noreferrer">SEA to Ashford drive</a>, with check-in target around 3:00-4:00 p.m.</li>
+              <li><strong>4:30-5:30 p.m.</strong> One short scenic outing only: either <a href="https://www.google.com/maps/dir/Ashford,+WA/Longmire,+Mount+Rainier+National+Park/Ashford,+WA" target="_blank" rel="noreferrer">Ashford to Longmire and back</a> or <a href="https://www.google.com/maps/dir/Ashford,+WA/Narada+Falls,+Mount+Rainier+National+Park/Ashford,+WA" target="_blank" rel="noreferrer">Ashford to Narada Falls and back</a>.</li>
               <li><strong>7:00-8:15 p.m.</strong> Dinner, then early night and final prep for the first major park day.</li>
             </ul>
             <span class="subhead">Food plan</span>
@@ -1002,12 +1028,12 @@
             <span class="subhead">Suggested timeline</span>
             <ul class="detail-list">
               <li><strong>5:45-6:05 a.m.</strong> Lodging coffee and packed breakfast. Do not build this morning around a cafe stop.</li>
-              <li><strong>6:15-7:00 a.m.</strong> Ashford to Paradise drive.</li>
+              <li><strong>6:15-7:00 a.m.</strong> <a href="https://www.google.com/maps/dir/Ashford,+WA/Paradise+Visitor+Center,+Mount+Rainier+National+Park" target="_blank" rel="noreferrer">Ashford to Paradise drive</a>.</li>
               <li><strong>7:15-10:15 a.m.</strong> Panorama Point via Skyline Trail. AllTrails lists 6.1 km / 2.5-3 hours; at a 2 mph baseline, the walking component is about 1 hour 55 minutes before photo stops.</li>
-              <li><strong>10:15-11:15 a.m.</strong> Paradise meadow time, visitor center, or regroup window.</li>
-              <li><strong>11:30 a.m.-12:15 p.m.</strong> Picnic lunch.</li>
-              <li><strong>12:15-1:00 p.m.</strong> Nisqually Vista for the recovery / low-exposure subgroup. AllTrails lists 1.1 miles / 0.5-1 hour; at a 2 mph baseline, the walk itself is about 35 minutes.</li>
-              <li><strong>1:00-1:45 p.m.</strong> Drive out toward Ashford with Reflection Lakes stop only if parking and energy still cooperate.</li>
+              <li><strong>10:15-11:15 a.m.</strong> Paradise meadow time, visitor center, or regroup window in the same core area; no extra drive needed.</li>
+              <li><strong>11:30 a.m.-12:15 p.m.</strong> Picnic lunch at the Paradise visitor area tables or nearby pullouts.</li>
+              <li><strong>12:15-1:00 p.m.</strong> Nisqually Vista for the recovery / low-exposure subgroup. AllTrails lists 1.1 miles / 0.5-1 hour; at a 2 mph baseline, the walk itself is about 35 minutes, and it stays inside the same Paradise core so there is no meaningful trailhead transfer.</li>
+              <li><strong>1:00-1:45 p.m.</strong> <a href="https://www.google.com/maps/dir/Paradise+Visitor+Center,+Mount+Rainier+National+Park/Reflection+Lakes,+Mount+Rainier+National+Park/Ashford,+WA" target="_blank" rel="noreferrer">Drive out toward Ashford via Reflection Lakes</a> only if parking and energy still cooperate.</li>
               <li><strong>2:00-4:30 p.m.</strong> Open recovery block back at basecamp.</li>
               <li><strong>7:00-8:15 p.m.</strong> Dinner.</li>
             </ul>
@@ -1046,12 +1072,12 @@
             <span class="subhead">Suggested timeline</span>
             <ul class="detail-list">
               <li><strong>6:45-7:05 a.m.</strong> Self-brew coffee or optional quick stop at Whittaker's if the group wants a slower rollout.</li>
-              <li><strong>7:15-8:00 a.m.</strong> Ashford to Reflection Lakes corridor drive.</li>
+              <li><strong>7:15-8:00 a.m.</strong> <a href="https://www.google.com/maps/dir/Ashford,+WA/Reflection+Lakes,+Mount+Rainier+National+Park" target="_blank" rel="noreferrer">Ashford to Reflection Lakes corridor drive</a>.</li>
               <li><strong>8:15-9:30 a.m.</strong> Bench and Snow Lakes Trail. AllTrails lists 2.3 miles / 1-1.5 hours; at a 2 mph baseline, the walking component is about 1 hour 10 minutes.</li>
-              <li><strong>9:45-10:30 a.m.</strong> Reflection Lakes and Narada-area scenic stops.</li>
-              <li><strong>10:30-11:15 a.m.</strong> Picnic lunch.</li>
-              <li><strong>11:15 a.m.-12:15 p.m.</strong> Optional short walk add-on near Narada or Paradise, then drive back.</li>
-              <li><strong>12:15-1:00 p.m.</strong> Return to Ashford.</li>
+              <li><strong>9:45-10:30 a.m.</strong> <a href="https://www.google.com/maps/dir/Bench+and+Snow+Lake+Trailhead,+Paradise+Valley+Road,+Ashford,+WA/Narada+Falls,+Mount+Rainier+National+Park" target="_blank" rel="noreferrer">Short corridor reposition to Narada / Reflection pullouts</a> for scenic stops.</li>
+              <li><strong>10:30-11:15 a.m.</strong> Picnic lunch at Reflection Lakes or Narada pullouts, depending parking.</li>
+              <li><strong>11:15 a.m.-12:15 p.m.</strong> Optional short walk add-on near Narada or Paradise, then <a href="https://www.google.com/maps/dir/Narada+Falls,+Mount+Rainier+National+Park/Ashford,+WA" target="_blank" rel="noreferrer">drive back to Ashford</a>.</li>
+              <li><strong>12:15-1:00 p.m.</strong> Return to Ashford and settle into recovery mode.</li>
               <li><strong>1:15-5:30 p.m.</strong> Protected recovery block.</li>
               <li><strong>7:00-8:15 p.m.</strong> Dinner.</li>
             </ul>
@@ -1090,10 +1116,10 @@
             <span class="subhead">Suggested timeline</span>
             <ul class="detail-list">
               <li><strong>8:00-8:20 a.m.</strong> Coffee, breakfast, and checkout.</li>
-              <li><strong>8:30-10:15 a.m.</strong> Scenic transfer drive via Paradise / Box Canyon if Stevens Canyon Road is open.</li>
+              <li><strong>8:30-10:15 a.m.</strong> <a href="https://www.google.com/maps/dir/Ashford,+WA/Box+Canyon,+Mount+Rainier+National+Park/Grove+of+the+Patriarchs+Trailhead,+Mount+Rainier+National+Park/Packwood,+WA" target="_blank" rel="noreferrer">Scenic transfer drive via Paradise / Box Canyon</a> if Stevens Canyon Road is open.</li>
               <li><strong>10:30 a.m.-12:00 p.m.</strong> Silver Falls Loop from the Grove parking / Eastside Trail approach. AllTrails lists 2.9 miles / 1-1.5 hours; at a 2 mph baseline, the walking component is about 1 hour 25 minutes.</li>
-              <li><strong>12:00-12:45 p.m.</strong> Lunch en route.</li>
-              <li><strong>12:45-1:30 p.m.</strong> Final drive into Packwood.</li>
+              <li><strong>12:00-12:45 p.m.</strong> Lunch at the Grove / trailhead area or a roadside pullout, with no extra stop beyond the transfer route.</li>
+              <li><strong>12:45-1:30 p.m.</strong> <a href="https://www.google.com/maps/dir/Grove+of+the+Patriarchs+Trailhead,+Mount+Rainier+National+Park/Packwood,+WA" target="_blank" rel="noreferrer">Final drive into Packwood</a>.</li>
               <li><strong>2:00-3:00 p.m.</strong> Check in and reset.</li>
               <li><strong>4:00-4:20 p.m.</strong> Optional town coffee / grocery top-off.</li>
               <li><strong>7:00-8:15 p.m.</strong> Dinner.</li>
@@ -1134,12 +1160,12 @@
             <span class="subhead">Suggested timeline</span>
             <ul class="detail-list">
               <li><strong>5:15-5:35 a.m.</strong> Lodging coffee and packed breakfast. This start is usually too early for a relaxed coffee stop.</li>
-              <li><strong>5:45-7:15 a.m.</strong> Packwood to Sunrise drive.</li>
+              <li><strong>5:45-7:15 a.m.</strong> <a href="https://www.google.com/maps/dir/Packwood,+WA/Sunrise+Visitor+Center,+Mount+Rainier+National+Park" target="_blank" rel="noreferrer">Packwood to Sunrise drive</a>.</li>
               <li><strong>7:30-8:50 a.m.</strong> Shadow Lake Trail. AllTrails lists 2.7 miles / 1-1.5 hours; at a 2 mph baseline, the walking component is about 1 hour 20 minutes.</li>
-              <li><strong>9:00-10:25 a.m.</strong> Silver Forest Trail. AllTrails lists 2.8 miles / 1-1.5 hours; at a 2 mph baseline, the walking component is about 1 hour 25 minutes.</li>
-              <li><strong>10:30-11:15 a.m.</strong> Picnic lunch at Sunrise.</li>
+              <li><strong>9:00-10:25 a.m.</strong> Silver Forest Trail. AllTrails lists 2.8 miles / 1-1.5 hours; at a 2 mph baseline, the walking component is about 1 hour 25 minutes. This is a short on-foot reposition inside the Sunrise core rather than a separate drive.</li>
+              <li><strong>10:30-11:15 a.m.</strong> Picnic lunch at the Sunrise visitor area tables, again without leaving the Sunrise core.</li>
               <li><strong>11:15 a.m.-1:00 p.m.</strong> Scenic overlooks, geology audio tour, and slow wandering time.</li>
-              <li><strong>1:00-2:30 p.m.</strong> Drive back to Packwood.</li>
+              <li><strong>1:00-2:30 p.m.</strong> <a href="https://www.google.com/maps/dir/Sunrise+Visitor+Center,+Mount+Rainier+National+Park/Packwood,+WA" target="_blank" rel="noreferrer">Drive back to Packwood</a>.</li>
               <li><strong>2:30-5:30 p.m.</strong> Recovery block.</li>
               <li><strong>7:00-8:15 p.m.</strong> Dinner.</li>
             </ul>
@@ -1186,11 +1212,11 @@
             <span class="subhead">Suggested timeline</span>
             <ul class="detail-list">
               <li><strong>7:00-7:20 a.m.</strong> Base Camp Coffee or Mountain Goat stop if the group wants a real cafe start.</li>
-              <li><strong>7:30-8:15 a.m.</strong> Packwood to Tipsoo drive.</li>
+              <li><strong>7:30-8:15 a.m.</strong> <a href="https://www.google.com/maps/dir/Packwood,+WA/Tipsoo+Lake,+Mount+Rainier+National+Park" target="_blank" rel="noreferrer">Packwood to Tipsoo drive</a>.</li>
               <li><strong>8:30-10:15 a.m.</strong> Naches Peak Loop. AllTrails lists 3.5 miles / 1.5-2 hours; at a 2 mph baseline, the walking component is about 1 hour 45 minutes.</li>
-              <li><strong>10:30-11:15 a.m.</strong> Picnic lunch.</li>
+              <li><strong>10:30-11:15 a.m.</strong> Picnic lunch at Tipsoo Lake immediately off the loop exit; no extra drive needed.</li>
               <li><strong>11:15 a.m.-12:00 p.m.</strong> Tipsoo overlooks and meadow time.</li>
-              <li><strong>12:00-12:45 p.m.</strong> Drive back to Packwood.</li>
+              <li><strong>12:00-12:45 p.m.</strong> <a href="https://www.google.com/maps/dir/Tipsoo+Lake,+Mount+Rainier+National+Park/Packwood,+WA" target="_blank" rel="noreferrer">Drive back to Packwood</a>.</li>
               <li><strong>1:00-5:30 p.m.</strong> Long, protected recovery block.</li>
               <li><strong>7:00-8:15 p.m.</strong> Dinner.</li>
             </ul>
@@ -1230,9 +1256,9 @@
             <p class="meta">This is where the itinerary either stays efficient or deliberately trades efficiency for Olympic scenery.</p>
             <span class="subhead">Suggested timeline</span>
             <ul class="detail-list">
-              <li><strong>Packwood branch:</strong> 6:40-7:00 a.m. coffee, 7:15-7:35 a.m. drive to trailhead, 7:45 a.m.-2:45 p.m. Packwood Lake outing with lakeside lunch. AllTrails lists 12.2 miles / 5.5-6 hours; at a 2 mph baseline, walking alone is about 6 hours 5 minutes, so this is the cleanest true full-day hike in the default plan.</li>
-              <li><strong>Olympic branch:</strong> 7:00-7:20 a.m. coffee, 7:20-10:20 a.m. Packwood to Lake Crescent / Port Angeles drive, 10:45-11:30 a.m. Marymere Falls, 11:45 a.m.-12:30 p.m. lunch, then short shoreline time or only a partial Spruce Railroad out-and-back.</li>
-              <li><strong>Spruce Railroad note:</strong> AllTrails lists the full out-and-back at 11.3 miles / 4-4.5 hours, so on transfer day it only works as a partial segment unless you skip Marymere.</li>
+              <li><strong>Packwood branch:</strong> 6:40-7:00 a.m. coffee, <a href="https://www.google.com/maps/dir/Packwood,+WA/Packwood+Lake+Trailhead,+Packwood,+WA" target="_blank" rel="noreferrer">7:15-7:35 a.m. drive to Packwood Lake trailhead</a>, 7:45 a.m.-2:45 p.m. Packwood Lake outing with lakeside lunch at the destination. AllTrails lists 12.2 miles / 5.5-6 hours; at a 2 mph baseline, walking alone is about 6 hours 5 minutes, so this is the cleanest true full-day hike in the default plan.</li>
+              <li><strong>Olympic branch:</strong> 7:00-7:20 a.m. coffee, <a href="https://www.google.com/maps/dir/Packwood,+WA/Lake+Crescent+Lodge,+Port+Angeles,+WA" target="_blank" rel="noreferrer">7:20-10:20 a.m. Packwood to Lake Crescent / Port Angeles drive</a>, 10:45-11:30 a.m. Marymere Falls, 11:45 a.m.-12:30 p.m. lunch near Lake Crescent, then short shoreline time or only a partial Spruce Railroad out-and-back.</li>
+              <li><strong>Spruce Railroad note:</strong> AllTrails lists the full out-and-back at 11.3 miles / 4-4.5 hours, so on transfer day it only works as a partial segment unless you skip Marymere. If you do both, use a <a href="https://www.google.com/maps/dir/Marymere+Falls+Trailhead,+Port+Angeles,+WA/Spruce+Railroad+Trail,+Port+Angeles,+WA" target="_blank" rel="noreferrer">short Lake Crescent reposition drive</a> between trail access points.</li>
               <li><strong>7:00-8:15 p.m.</strong> Dinner wherever the branch lands.</li>
             </ul>
             <span class="subhead">Food plan</span>
@@ -1272,9 +1298,9 @@
             <p class="meta">Use this as a buffer day, not a forced hero day, unless the whole group is genuinely still hungry for one more big push.</p>
             <span class="subhead">Suggested timeline</span>
             <ul class="detail-list">
-              <li><strong>Packwood easy-version day:</strong> 8:00-8:20 a.m. coffee, 8:30-9:00 a.m. Alder Lake drive, relaxed lake block, 12:00-12:45 p.m. lunch, then an easy town afternoon before 7:00 p.m. dinner.</li>
-              <li><strong>Packwood strong-hiker upgrade:</strong> 6:30-6:50 a.m. coffee, 7:00-8:15 a.m. drive to the Summerland trailhead, 8:15 a.m.-2:45 p.m. Summerland outing with trail lunch. AllTrails lists 10.2 miles / 6-6.5 hours; at a 2 mph baseline, walking alone is about 5 hours 5 minutes.</li>
-              <li><strong>Olympic branch:</strong> 7:30-8:00 a.m. breakfast / coffee, 8:15-9:30 a.m. drive to Sol Duc, 9:30-10:30 a.m. Sol Duc Falls, 10:45-11:30 a.m. lunch, then Lake Crescent / shoreline time before dinner.</li>
+              <li><strong>Packwood easy-version day:</strong> 8:00-8:20 a.m. coffee, <a href="https://www.google.com/maps/dir/Packwood,+WA/Alder+Lake+Park,+Eatonville,+WA" target="_blank" rel="noreferrer">8:30-9:00 a.m. Alder Lake drive</a>, relaxed lake block, 12:00-12:45 p.m. lunch at the park, then an easy town afternoon before 7:00 p.m. dinner.</li>
+              <li><strong>Packwood strong-hiker upgrade:</strong> 6:30-6:50 a.m. coffee, <a href="https://www.google.com/maps/dir/Packwood,+WA/Fryingpan+Creek+Trailhead,+Washington" target="_blank" rel="noreferrer">7:00-8:15 a.m. drive to the Summerland trailhead</a>, 8:15 a.m.-2:45 p.m. Summerland outing with trail lunch. AllTrails lists 10.2 miles / 6-6.5 hours; at a 2 mph baseline, walking alone is about 5 hours 5 minutes.</li>
+              <li><strong>Olympic branch:</strong> 7:30-8:00 a.m. breakfast / coffee, <a href="https://www.google.com/maps/dir/Port+Angeles,+WA/Sol+Duc+Falls+Trailhead,+Port+Angeles,+WA" target="_blank" rel="noreferrer">8:15-9:30 a.m. drive to Sol Duc</a>, 9:30-10:30 a.m. Sol Duc Falls, 10:45-11:30 a.m. lunch at Sol Duc or on the return, then a <a href="https://www.google.com/maps/dir/Sol+Duc+Falls+Trailhead,+Port+Angeles,+WA/Lake+Crescent+Lodge,+Port+Angeles,+WA" target="_blank" rel="noreferrer">reposition drive back toward Lake Crescent</a> before shoreline time and dinner.</li>
             </ul>
             <span class="subhead">Food plan</span>
             <ul class="detail-list">
@@ -1315,8 +1341,8 @@
             <p class="meta">Keep airport timing conservative. The scenic version of this trip is not the same thing as an aggressive departure-day gamble.</p>
             <span class="subhead">Suggested timeline</span>
             <ul class="detail-list">
-              <li><strong>Packwood finish:</strong> 7:30-8:00 a.m. coffee and checkout, then 8:00-11:00 a.m. drive to SEA with a flight target of 1:00 p.m. or later.</li>
-              <li><strong>Port Angeles / Lake Crescent finish:</strong> 7:30-8:00 a.m. coffee and checkout, then 8:00 a.m.-12:00 p.m. drive to SEA with a flight target of 3:00 p.m. or later.</li>
+              <li><strong>Packwood finish:</strong> 7:30-8:00 a.m. coffee and checkout, then <a href="https://www.google.com/maps/dir/Packwood,+WA/Seattle-Tacoma+International+Airport" target="_blank" rel="noreferrer">8:00-11:00 a.m. drive to SEA</a> with a flight target of 1:00 p.m. or later.</li>
+              <li><strong>Port Angeles / Lake Crescent finish:</strong> 7:30-8:00 a.m. coffee and checkout, then <a href="https://www.google.com/maps/dir/Port+Angeles,+WA/Seattle-Tacoma+International+Airport" target="_blank" rel="noreferrer">8:00 a.m.-12:00 p.m. drive to SEA</a> with a flight target of 3:00 p.m. or later.</li>
               <li><strong>Meal buffer:</strong> airport lunch is more reliable than trying to fit a sit-down meal into the scenic route home.</li>
             </ul>
             <ul class="detail-list">
