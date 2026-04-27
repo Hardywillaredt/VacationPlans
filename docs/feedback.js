@@ -3,21 +3,18 @@ const repoName = 'VacationPlans';
 const repoBase = `https://github.com/${repoOwner}/${repoName}`;
 
 function buildIssueUrl(template, title) {
-  const params = new URLSearchParams({
-    template,
-    title,
-  });
+  const params = new URLSearchParams({ template, title });
   return `${repoBase}/issues/new?${params.toString()}`;
 }
 
-function buildIssuesQuery(labels) {
+function buildIssuesQuery(labels = ['feedback']) {
   const query = `is:issue repo:${repoOwner}/${repoName} ${labels.map((label) => `label:${label}`).join(' ')}`;
   return `${repoBase}/issues?q=${encodeURIComponent(query)}`;
 }
 
-function makeChip(label, href) {
+function makeChip(label, href, extraClass = 'chip') {
   const anchor = document.createElement('a');
-  anchor.className = 'chip';
+  anchor.className = extraClass;
   anchor.href = href;
   anchor.target = '_blank';
   anchor.rel = 'noreferrer';
@@ -25,40 +22,119 @@ function makeChip(label, href) {
   return anchor;
 }
 
-function addGeneralActions() {
-  const host = document.getElementById('feedback-general-actions');
-  if (!host) return;
-
-  host.appendChild(makeChip('General Feedback', buildIssueUrl('general-comment.yml', 'General trip feedback')));
-  host.appendChild(makeChip('View Feedback Issues', buildIssuesQuery(['feedback'])));
-  host.appendChild(makeChip('Open Discussions', `${repoBase}/discussions`));
-}
-
-function addDayFeedbackLinks() {
-  document.querySelectorAll('article.day').forEach((dayCard) => {
+function getDayOptions() {
+  return [...document.querySelectorAll('article.day')].map((dayCard) => {
     const date = dayCard.querySelector('.date')?.textContent?.trim() || 'Unknown date';
     const title = dayCard.querySelector('h3')?.textContent?.trim() || 'Unnamed day';
-    const row = document.createElement('div');
-    row.className = 'feedback-row';
-    row.appendChild(makeChip('Comment On This Day', buildIssueUrl('day-feedback.yml', `[Day] ${date} - ${title}`)));
-    row.appendChild(makeChip('View Day Feedback', buildIssuesQuery(['feedback', 'day-feedback'])));
-    dayCard.appendChild(row);
+    return `${date} - ${title}`;
   });
 }
 
-function addLodgingFeedbackLinks() {
-  document.querySelectorAll('#bookings tbody tr').forEach((row) => {
+function getLodgingOptions() {
+  return [...document.querySelectorAll('#bookings tbody tr')].map((row) => {
     const area = row.querySelector('td[data-label="Area"]')?.textContent?.trim() || 'Unknown area';
     const property = row.querySelector('td[data-label="Property"] strong')?.textContent?.trim() || 'Unknown property';
-    const targetCell = row.querySelector('td[data-label="Link"]');
-    if (!targetCell) return;
+    return `${property} - ${area}`;
+  });
+}
 
-    const wrapper = document.createElement('div');
-    wrapper.className = 'feedback-row';
-    wrapper.style.marginTop = '0.55rem';
-    wrapper.appendChild(makeChip('Update This Lodging', buildIssueUrl('lodging-update.yml', `[Lodging] ${property} - ${area}`)));
-    wrapper.appendChild(makeChip('View Lodging Feedback', buildIssuesQuery(['feedback', 'lodging-update'])));
-    targetCell.appendChild(wrapper);
+function fillSelect(select, options, placeholder) {
+  select.innerHTML = '';
+  if (options.length === 0) {
+    const option = document.createElement('option');
+    option.value = '';
+    option.textContent = placeholder;
+    select.appendChild(option);
+    return;
+  }
+  options.forEach((value) => {
+    const option = document.createElement('option');
+    option.value = value;
+    option.textContent = value;
+    select.appendChild(option);
+  });
+}
+
+function setupFeedbackDialog() {
+  const dialog = document.getElementById('feedback-dialog');
+  const openButton = document.getElementById('open-feedback-dialog');
+  const cancelButton = document.getElementById('feedback-cancel');
+  const typeSelect = document.getElementById('feedback-type');
+  const subjectSelect = document.getElementById('feedback-subject');
+  const subjectLabel = document.getElementById('feedback-subject-label');
+  const form = document.getElementById('feedback-form');
+
+  if (!dialog || !openButton || !cancelButton || !typeSelect || !subjectSelect || !subjectLabel || !form) {
+    return;
+  }
+
+  const dayOptions = getDayOptions();
+  const lodgingOptions = getLodgingOptions();
+
+  function syncSubjectField() {
+    const type = typeSelect.value;
+    if (type === 'general') {
+      subjectLabel.style.display = 'none';
+      fillSelect(subjectSelect, [], 'No target needed');
+      return;
+    }
+
+    subjectLabel.style.display = '';
+    if (type === 'day') {
+      fillSelect(subjectSelect, dayOptions, 'No day targets found');
+      return;
+    }
+
+    fillSelect(subjectSelect, lodgingOptions, 'No lodging targets found');
+  }
+
+  openButton.addEventListener('click', () => {
+    syncSubjectField();
+    dialog.showModal();
+  });
+
+  cancelButton.addEventListener('click', () => dialog.close());
+  typeSelect.addEventListener('change', syncSubjectField);
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const type = typeSelect.value;
+    let template = 'general-comment.yml';
+    let title = '[General] Trip feedback';
+
+    if (type === 'day') {
+      template = 'day-feedback.yml';
+      title = `[Day] ${subjectSelect.value}`;
+    } else if (type === 'lodging') {
+      template = 'lodging-update.yml';
+      title = `[Lodging] ${subjectSelect.value}`;
+    }
+
+    window.open(buildIssueUrl(template, title), '_blank', 'noopener');
+    dialog.close();
+  });
+
+  syncSubjectField();
+}
+
+function addFeedbackFilters() {
+  const host = document.getElementById('feedback-filters');
+  if (!host) return;
+
+  const buttons = [
+    { label: 'All', value: 'all' },
+    { label: 'Day', value: 'day-feedback' },
+    { label: 'Lodging', value: 'lodging-update' },
+    { label: 'General', value: 'general-comment' },
+  ];
+
+  buttons.forEach((item, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = index === 0 ? 'chip' : 'chip';
+    button.dataset.filter = item.value;
+    button.textContent = item.label;
+    host.appendChild(button);
   });
 }
 
@@ -71,42 +147,77 @@ function renderFeedbackSummary(data) {
     return;
   }
 
+  host.innerHTML = '';
+
+  const items = data.items;
   const counts = {
-    day: 0,
-    lodging: 0,
-    general: 0,
+    all: items.length,
+    'day-feedback': items.filter((item) => item.labels.includes('day-feedback')).length,
+    'lodging-update': items.filter((item) => item.labels.includes('lodging-update')).length,
+    'general-comment': items.filter((item) => item.labels.includes('general-comment')).length,
   };
 
-  data.items.forEach((item) => {
-    if (item.labels.includes('day-feedback')) counts.day += 1;
-    else if (item.labels.includes('lodging-update')) counts.lodging += 1;
-    else if (item.labels.includes('general-comment')) counts.general += 1;
+  document.querySelectorAll('#feedback-filters [data-filter]').forEach((button) => {
+    const filter = button.dataset.filter;
+    const count = filter === 'all' ? counts.all : counts[filter];
+    button.textContent = `${button.textContent.split(' (')[0]} (${count})`;
   });
-
-  host.innerHTML = '';
 
   const summary = document.createElement('p');
   summary.className = 'tiny muted';
-  summary.textContent = `Synced ${data.items.length} feedback items. Day: ${counts.day}. Lodging: ${counts.lodging}. General: ${counts.general}. Last sync: ${data.generatedAt || 'unknown'}.`;
+  summary.textContent = `Synced ${items.length} feedback items. Last sync: ${data.generatedAt || 'unknown'}.`;
   host.appendChild(summary);
 
-  const list = document.createElement('ul');
-  list.className = 'detail-list';
-  data.items.slice(0, 8).forEach((item) => {
-    const li = document.createElement('li');
-    const link = document.createElement('a');
-    link.href = item.html_url;
-    link.target = '_blank';
-    link.rel = 'noreferrer';
-    link.textContent = item.title;
-    li.appendChild(link);
-    li.append(` (${item.state})`);
-    if (item.excerpt) {
-      li.append(` - ${item.excerpt}`);
+  const listHost = document.createElement('div');
+  listHost.id = 'feedback-items';
+  host.appendChild(listHost);
+
+  function renderItems(filter = 'all') {
+    listHost.innerHTML = '';
+    const visibleItems = filter === 'all'
+      ? items
+      : items.filter((item) => item.labels.includes(filter));
+
+    if (visibleItems.length === 0) {
+      const empty = document.createElement('p');
+      empty.className = 'tiny muted';
+      empty.textContent = 'No feedback items match this filter yet.';
+      listHost.appendChild(empty);
+      return;
     }
-    list.appendChild(li);
+
+    visibleItems.slice(0, 12).forEach((item) => {
+      const card = document.createElement('div');
+      card.className = 'feedback-item';
+      const title = document.createElement('a');
+      title.href = item.html_url;
+      title.target = '_blank';
+      title.rel = 'noreferrer';
+      title.textContent = item.title;
+      card.appendChild(title);
+
+      const meta = document.createElement('p');
+      meta.className = 'tiny muted';
+      meta.textContent = `State: ${item.state}. Labels: ${item.labels.join(', ')}. Votes: +${item.reactions.plus_one} / -${item.reactions.minus_one}.`;
+      card.appendChild(meta);
+
+      if (item.excerpt) {
+        const excerpt = document.createElement('p');
+        excerpt.textContent = item.excerpt;
+        card.appendChild(excerpt);
+      }
+
+      listHost.appendChild(card);
+    });
+  }
+
+  renderItems('all');
+
+  document.querySelectorAll('#feedback-filters [data-filter]').forEach((button) => {
+    button.addEventListener('click', () => {
+      renderItems(button.dataset.filter);
+    });
   });
-  host.appendChild(list);
 }
 
 async function loadFeedbackSummary() {
@@ -124,8 +235,7 @@ async function loadFeedbackSummary() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  addGeneralActions();
-  addDayFeedbackLinks();
-  addLodgingFeedbackLinks();
+  addFeedbackFilters();
+  setupFeedbackDialog();
   loadFeedbackSummary();
 });
