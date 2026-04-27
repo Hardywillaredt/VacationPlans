@@ -436,7 +436,8 @@
     }
 
     .feedback-form-grid select,
-    .feedback-form-grid input {
+    .feedback-form-grid input,
+    .feedback-form-grid textarea {
       min-height: 44px;
       border-radius: 12px;
       border: 1px solid var(--line);
@@ -444,6 +445,20 @@
       font: inherit;
       color: var(--ink);
       background: rgba(255, 255, 255, 0.92);
+    }
+
+    .feedback-form-grid textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .field-group {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .field-group[hidden] {
+      display: none;
     }
 
     .dialog-actions {
@@ -1143,13 +1158,6 @@
           <tbody>
             <tr>
               <td data-label="Area">Ashford / park southwest</td>
-              <td data-label="Property"><strong>Copper Creek Inn and Cabins</strong></td>
-              <td data-label="Why it fits">Strong comfort play with on-site restaurant, cabins, and multiple hot-tub or jetted-tub style options for the recovery-minded group members.</td>
-              <td data-label="Live note">The official ResNexus booking calendar is live, but I could not extract a clean <strong>Aug 8-11, 2026 / 8-guest</strong> inventory snapshot from the public page. Treat this as a direct-book backup and use the booking calendar or call/text contacts rather than assuming open space.</td>
-              <td data-label="Link"><a href="https://resnexus.com/resnexus/reservations/book/F3E8913E-7B71-46E2-B7A3-35EE6D76733D" target="_blank" rel="noreferrer">Booking page</a></td>
-            </tr>
-            <tr>
-              <td data-label="Area">Ashford / park southwest</td>
               <td data-label="Property"><strong>Rainier Getaway - Hot Tub+Games - Sleeps 12 - Gym+EV</strong></td>
               <td data-label="Why it fits">Best browser-verified Ashford group-home result from the live Airbnb pass. It cleanly exceeds the party size, keeps everyone together, and looks strong on both amenities and parking.</td>
               <td data-label="Live note">Airbnb live search for <strong>Aug 8-11, 2026 / 8 guests</strong> surfaced this at <strong>$1,646 for 3 nights</strong> on <strong>Apr 26, 2026</strong>.</td>
@@ -1161,13 +1169,6 @@
               <td data-label="Why it fits">Strongest direct listing-page Ashford signal from the browser pass, and one of the cleanest all-under-one-roof fits for an eight-person group.</td>
               <td data-label="Live note">The date-specific listing page showed a reserve-state indicator and pricing signal for <strong>Aug 8-11, 2026 / 8 guests</strong> during the <strong>Apr 26, 2026</strong> browser pass.</td>
               <td data-label="Link"><a href="https://www.airbnb.com/rooms/801122569683486057?check_in=2026-08-08&amp;check_out=2026-08-11&amp;adults=8" target="_blank" rel="noreferrer">Direct listing</a></td>
-            </tr>
-            <tr>
-              <td data-label="Area">Packwood</td>
-              <td data-label="Property"><strong>Packwood Lodge and Cabins</strong></td>
-              <td data-label="Why it fits">Best blend of comfort, access, and easy parking; official accommodations page highlights cabin and suite choices including jetted-tub options.</td>
-              <td data-label="Live note">This remains the best hotel-style Packwood fit for a group of eight because the property advertises cabins plus a two-bedroom suite, but I could not verify a same-date <strong>Aug 11-16, 2026</strong> inventory snapshot from the script-driven booking flow.</td>
-              <td data-label="Link"><a href="https://packwoodlodge.com/" target="_blank" rel="noreferrer">Official site</a></td>
             </tr>
             <tr>
               <td data-label="Area">Packwood</td>
@@ -1197,15 +1198,18 @@
           <div class="card">
             <h3>Base-selection logic</h3>
             <ul class="detail-list">
-              <li><strong>For all-under-one-roof group fit:</strong> favor the Ashford and Packwood whole-home options over properties that require room splitting.</li>
-              <li><strong>For official non-Airbnb backups:</strong> keep Copper Creek and Packwood Lodge in play because they still fit the trip shape even when live inventory is opaque.</li>
+              <li><strong>For all-under-one-roof group fit:</strong> the main booking table now prioritizes single-home or single-building options that can plausibly keep all eight guests together.</li>
+              <li><strong>For official non-Airbnb backups:</strong> keep Copper Creek and Packwood Lodge in reserve only if the whole-home options disappear or the group decides it wants a split-stay format.</li>
               <li><strong>For in-park atmosphere:</strong> National Park Inn, Paradise Inn, and Lake Crescent Lodge were removed from the active shortlist because the checked date blocks were already out of capacity.</li>
               <li><strong>For Olympic scenery:</strong> use the Port Angeles whole-home fallback before chasing fragmented room inventory around Lake Crescent or Sol Duc.</li>
             </ul>
           </div>
           <div class="card">
-            <h3>Useful live booking hubs</h3>
+            <h3>Useful live booking hubs and reserve backups</h3>
+            <p class="tiny muted">These remain worth checking, but they are secondary to the whole-home shortlist because they either rely on room splitting or have less transparent group-capacity visibility.</p>
             <div class="link-row">
+              <a class="chip" href="https://resnexus.com/resnexus/reservations/book/F3E8913E-7B71-46E2-B7A3-35EE6D76733D" target="_blank" rel="noreferrer">Copper Creek booking page</a>
+              <a class="chip" href="https://packwoodlodge.com/" target="_blank" rel="noreferrer">Packwood Lodge</a>
               <a class="chip" href="https://secure.webrez.com/hotel/2815" target="_blank" rel="noreferrer">Rainier Guest Services hub</a>
               <a class="chip" href="https://exploreolympic.com/lodging/" target="_blank" rel="noreferrer">Lake Crescent / Log Cabin hub</a>
               <a class="chip" href="https://www.nps.gov/mora/planyourvisit/lodging.htm" target="_blank" rel="noreferrer">NPS lodging overview</a>
@@ -1219,7 +1223,7 @@
         <div class="section-head">
           <div>
             <h2>Feedback And Updates</h2>
-            <p>Use this single feedback hub for general comments, day-specific reactions, and lodging availability updates. It keeps the page cleaner than attaching separate feedback buttons to every card and row.</p>
+            <p>Use this single feedback hub as the landing point to review submitted feedback across the trip plan. Feedback can still be entered directly from each day card and each lodging row through the same shared on-page form.</p>
           </div>
         </div>
 
@@ -1227,13 +1231,13 @@
           <div class="card">
             <h3>Leave feedback</h3>
             <ul class="detail-list">
-              <li>Open the feedback dialog once, choose <strong>General</strong>, <strong>Day</strong>, or <strong>Lodging</strong>, and continue to the matching GitHub form only when you are ready to submit.</li>
-              <li>The dialog lets users pick a specific itinerary day or lodging option from one place instead of hunting for section-level buttons.</li>
-              <li>GitHub reactions can still act as the first-pass up/down signal on submitted items.</li>
+              <li>Use the in-page feedback form for page-wide comments, day-specific reactions, or lodging updates without filling everything out on a separate site first.</li>
+              <li>Each itinerary day and each lodging row gets a <strong>Leave feedback</strong> entry point, but they all feed the same shared dialog.</li>
+              <li>GitHub reactions can still act as the first-pass up/down signal on submitted items after they are posted.</li>
             </ul>
             <div class="feedback-row" id="feedback-general-actions">
               <button class="button primary" id="open-feedback-dialog" type="button">Leave Feedback</button>
-              <a class="button secondary" id="view-all-feedback" href="https://github.com/Hardywillaredt/VacationPlans/issues?q=is%3Aissue%20repo%3AHardywillaredt%2FVacationPlans%20label%3Afeedback" target="_blank" rel="noreferrer">View All Feedback</a>
+              <button class="button secondary" id="view-all-feedback" type="button">View All Feedback</button>
             </div>
           </div>
 
@@ -1242,13 +1246,13 @@
             <ul class="detail-list">
               <li><strong>General:</strong> itinerary-wide comments, branch preferences, or coordination notes.</li>
               <li><strong>Day:</strong> comments tied to one itinerary day or section.</li>
-              <li><strong>Lodging:</strong> availability updates, observed prices, recommendation shifts, and fit notes for a specific booking option.</li>
+              <li><strong>Lodging:</strong> availability ranges, star ratings, user-supplied name, recommendation shifts, and fit notes for a specific booking option.</li>
             </ul>
-            <p class="feedback-note">A scheduled GitHub Action ingests submitted issues into a site data file so this landing page can show all feedback in one place.</p>
+            <p class="feedback-note">A scheduled GitHub Action ingests submitted issues into a site data file so this landing page can show all feedback in one place. The inline form gathers the structured details first, then hands off the final save step to GitHub.</p>
           </div>
         </div>
 
-        <div class="card" style="margin-top:1rem;">
+        <div class="card" id="feedback-latest" style="margin-top:1rem;">
           <h3>Latest synced feedback</h3>
           <p class="tiny muted">This area reads from a generated JSON file in the repository. It will stay empty until the repo starts receiving feedback issues and the sync workflow runs.</p>
           <div class="feedback-filters" id="feedback-filters"></div>
@@ -1259,7 +1263,7 @@
       <dialog class="feedback-dialog" id="feedback-dialog">
         <div class="dialog-shell">
           <h3>Leave feedback</h3>
-          <p class="tiny muted">Choose a feedback type, then optionally choose the specific day or lodging target before continuing to the matching GitHub form.</p>
+          <p class="tiny muted">Fill the feedback directly on this page. The final submit step still hands off to GitHub because Pages cannot securely create GitHub records by itself without an authenticated backend.</p>
           <form class="feedback-form-grid" id="feedback-form" method="dialog">
             <label>
               Feedback type
@@ -1272,6 +1276,55 @@
             <label id="feedback-subject-label">
               Specific target
               <select id="feedback-subject" name="feedback-subject"></select>
+            </label>
+            <label>
+              Your name
+              <input id="feedback-name" name="feedback-name" type="text" placeholder="Optional display name">
+            </label>
+            <div class="field-group" id="general-fields">
+              <label>
+                Overall reaction
+                <select id="feedback-reaction" name="feedback-reaction">
+                  <option value="Strongly support">Strongly support</option>
+                  <option value="Support">Support</option>
+                  <option value="Neutral">Neutral</option>
+                  <option value="Concerned">Concerned</option>
+                  <option value="Strongly opposed">Strongly opposed</option>
+                </select>
+              </label>
+            </div>
+            <div class="field-group" id="lodging-fields" hidden>
+              <label>
+                Availability status
+                <select id="lodging-status" name="lodging-status">
+                  <option value="Available">Available</option>
+                  <option value="Limited availability">Limited availability</option>
+                  <option value="Unavailable">Unavailable</option>
+                  <option value="Unclear">Unclear</option>
+                </select>
+              </label>
+              <label>
+                Available from
+                <input id="lodging-available-from" name="lodging-available-from" type="date">
+              </label>
+              <label>
+                Available to
+                <input id="lodging-available-to" name="lodging-available-to" type="date">
+              </label>
+              <label>
+                Star rating
+                <select id="lodging-stars" name="lodging-stars">
+                  <option value="5">5 / 5</option>
+                  <option value="4">4 / 5</option>
+                  <option value="3" selected>3 / 5</option>
+                  <option value="2">2 / 5</option>
+                  <option value="1">1 / 5</option>
+                </select>
+              </label>
+            </div>
+            <label>
+              Feedback details
+              <textarea id="feedback-details" name="feedback-details" placeholder="Explain what changed, what you observed, or what the group should know."></textarea>
             </label>
             <div class="dialog-actions">
               <button class="button primary" id="feedback-continue" type="submit">Continue on GitHub</button>
