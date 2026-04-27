@@ -1,0 +1,34 @@
+name: General trip comment
+description: Leave page-wide or trip-wide feedback that does not belong to one specific day or lodging option.
+title: "[General] "
+labels:
+  - feedback
+  - general-comment
+body:
+  - type: dropdown
+    id: topic
+    attributes:
+      label: Topic
+      options:
+        - Itinerary shape
+        - Branch preference
+        - Transportation
+        - Food / coffee
+        - Group coordination
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: comment
+    attributes:
+      label: Comment
+      description: Explain the suggestion, concern, or reaction.
+      placeholder: What should change or what should the group know?
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Supporting links or notes
+      description: Optional. Add links, screenshots, or context.
+      placeholder: URLs, quotes, screenshots, or rationale.

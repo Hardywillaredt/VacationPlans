@@ -1,0 +1,40 @@
+name: Day-specific feedback
+description: Comment on a specific itinerary day or section.
+title: "[Day] "
+labels:
+  - feedback
+  - day-feedback
+body:
+  - type: input
+    id: day_label
+    attributes:
+      label: Day or section
+      description: Copy the day label or itinerary section title.
+      placeholder: Friday, August 7 - Optional early-arrival night
+    validations:
+      required: true
+  - type: dropdown
+    id: sentiment
+    attributes:
+      label: Overall reaction
+      options:
+        - Strongly support
+        - Support
+        - Neutral
+        - Concerned
+        - Strongly opposed
+    validations:
+      required: true
+  - type: textarea
+    id: comment
+    attributes:
+      label: Feedback
+      description: Explain what works, what should change, or what to watch for.
+      placeholder: Driving time is too heavy here, or this looks like the best recovery slot, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: links
+    attributes:
+      label: Supporting links or notes
+      description: Optional. Add maps, booking links, trail links, or context.

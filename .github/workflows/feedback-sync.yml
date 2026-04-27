@@ -1,0 +1,72 @@
+name: Sync Feedback Data
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 13 * * *"
+  issues:
+    types: [opened, edited, reopened, closed, labeled, unlabeled]
+
+permissions:
+  contents: write
+  issues: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Build feedback data file
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'all',
+              labels: 'feedback',
+              per_page: 100,
+            });
+
+            const items = issues
+              .filter((issue) => !issue.pull_request)
+              .map((issue) => ({
+                number: issue.number,
+                title: issue.title,
+                html_url: issue.html_url,
+                state: issue.state,
+                labels: issue.labels.map((label) => label.name),
+                created_at: issue.created_at,
+                updated_at: issue.updated_at,
+                reactions: {
+                  plus_one: issue.reactions['+1'],
+                  minus_one: issue.reactions['-1'],
+                  heart: issue.reactions.heart,
+                  hooray: issue.reactions.hooray,
+                },
+                excerpt: (issue.body || '').replace(/\s+/g, ' ').trim().slice(0, 220),
+              }));
+
+            const payload = {
+              generatedAt: new Date().toISOString(),
+              items,
+            };
+
+            fs.mkdirSync('docs/data', { recursive: true });
+            fs.writeFileSync('docs/data/feedback.json', JSON.stringify(payload, null, 2) + '\n');
+
+      - name: Commit updated feedback data if needed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data/feedback.json
+          if git diff --cached --quiet; then
+            echo "No feedback data changes."
+            exit 0
+          fi
+          git commit -m "Update feedback data"
+          git push

@@ -1,0 +1,69 @@
+name: Lodging availability or recommendation update
+description: Report fresh lodging availability, pricing, or recommendation changes.
+title: "[Lodging] "
+labels:
+  - feedback
+  - lodging-update
+body:
+  - type: input
+    id: area
+    attributes:
+      label: Area
+      placeholder: Ashford / park southwest
+    validations:
+      required: true
+  - type: input
+    id: property
+    attributes:
+      label: Property
+      placeholder: Copper Creek Inn and Cabins
+    validations:
+      required: true
+  - type: input
+    id: date_range
+    attributes:
+      label: Date range checked
+      placeholder: Aug 8-11, 2026 for 8 guests
+    validations:
+      required: true
+  - type: dropdown
+    id: availability
+    attributes:
+      label: Availability observed
+      options:
+        - Available
+        - Limited availability
+        - Unavailable
+        - Unclear / could not verify
+    validations:
+      required: true
+  - type: input
+    id: price
+    attributes:
+      label: Observed total price
+      description: Optional. Enter the total you saw.
+      placeholder: $1,646 for 3 nights
+  - type: input
+    id: source_url
+    attributes:
+      label: Source URL
+      description: Link to the booking page or listing you checked.
+      placeholder: https://...
+  - type: dropdown
+    id: recommendation
+    attributes:
+      label: Recommendation
+      options:
+        - Strong yes
+        - Yes
+        - Neutral
+        - No
+        - Strong no
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Add fit details, occupancy constraints, cancellation notes, or caveats.
+      placeholder: Sleeps 8 cleanly, but only if the loft bed is used for children.
